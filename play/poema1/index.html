@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Poema 1 · Escuchar</title>
+
+  <!-- META para compartir (opcional) -->
+  <meta property="og:title" content="Poema 1 · Escuchar">
+  <meta property="og:description" content="Reproduce el audio del poema.">
+  <meta property="og:image" content="https://manuelmartin1d.github.io/poemas/poema1/cover.jpg"><!-- <-- cambia o elimina si no hay portada -->
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg1:#0f172a;  /* fondo oscuro elegante */
+      --bg2:#1e293b;
+      --card:#0b1222cc;
+      --accent:#22d3ee; /* cian */
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; 
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1000px 600px at 70% 0%, var(--bg2), var(--bg1));
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .card{
+      width:min(720px, 100%); 
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:24px; 
+      box-shadow: 0 10px 40px rgba(0,0,0,.35);
+      padding:24px; 
+      backdrop-filter: blur(8px);
+    }
+    .row{display:grid; grid-template-columns: 120px 1fr; gap:20px; align-items:center}
+    .cover{
+      width:120px; height:120px; border-radius:16px; object-fit:cover; 
+      border:1px solid rgba(255,255,255,0.15);
+      background:#111827;
+    }
+    h1{margin:0 0 6px 0; font-weight:700; font-size: clamp(20px, 3.2vw, 28px);}
+    .meta{color:var(--muted); margin-bottom:16px}
+    audio{width:100%; outline:none; margin-top:8px}
+    .actions{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:none; cursor:pointer; 
+      background:var(--accent); color:#0c1323; font-weight:700;
+      padding:10px 14px; border-radius:12px;
+    }
+    .btn.secondary{
+      background:transparent; color:var(--text);
+      border:1px solid rgba(255,255,255,0.18);
+    }
+    .small{font-size:12px; color:var(--muted); margin-top:8px}
+    .center{ text-align:center; margin-top:10px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="row">
+      <!-- ⚠️ Portada: cambia la ruta o deja un rectángulo vacío si no tienes cover -->
+      <img class="cover" src="https://manuelmartin1d.github.io/poemas/poema1/cover.jpg" alt="Portada del poema" onerror="this.style.visibility='hidden'">
+
+      <div>
+        <!-- ⚠️ Título y descripción -->
+        <h1>Poema 1 — Título del poema</h1>
+        <div class="meta">Lectura por Manu · 1–3 min</div>
+
+        <!-- ⚠️ Fuente de audio: usa la URL pública real del mp3 -->
+        <audio id="player" controls preload="metadata">
+          <source src="https://manuelmartin1d.github.io/poemas/poema1/audio.mp3" type="audio/mpeg">
+          Tu navegador no soporta el elemento de audio.
+        </audio>
+
+        <div class="actions">
+          <a class="btn" id="download" href="https://manuelmartin1d.github.io/poemas/poema1/audio.mp3" download>Descargar MP3</a>
+          <button class="btn secondary" id="copy">Copiar enlace</button>
+        </div>
+
+        <div class="small">Consejo: en móviles pulsa ▶ para empezar (los navegadores bloquean el autoplay).</div>
+      </div>
+    </div>
+
+    <div class="center small">© 2025 · Poemas</div>
+  </main>
+
+  <script>
+    // Copiar enlace de la página bonita (no del mp3) para compartir
+    document.getElementById('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(location.href);
+        const old = document.getElementById('copy').textContent;
+        document.getElementById('copy').textContent = '¡Enlace copiado!';
+        setTimeout(()=> document.getElementById('copy').textContent = old, 1200);
+      } catch(e) { alert('No se pudo copiar'); }
+    });
+  </script>
+</body>
+</html>
