@@ -12,45 +12,63 @@
   <meta property="og:type" content="website">
 
   <style>
-    :root {
-      --bg1:#0f172a;  /* fondo oscuro elegante */
-      --bg2:#1e293b;
-      --card:#0b1222cc;
-      --accent:#22d3ee; /* cian */
-      --text:#e2e8f0;
-      --muted:#94a3b8;
+    :root{
+      --bg1:#000000;      /* negro */
+      --bg2:#0a0a0a;      /* negro muy oscuro para el degradado */
+      --card:#0b1222cc;   /* no lo usamos directamente, lo dejo por si lo quieres */
+      --accent:#22d3ee;   /* cian para botón */
+      --text:#e5e7eb;     /* texto */
+      --muted:#94a3b8;    /* texto secundario */
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; 
+      margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color:var(--text);
-      background: radial-gradient(1000px 600px at 70% 0%, var(--bg2), var(--bg1));
+      /* fondo negro con un toque sutil */
+      background:
+        radial-gradient(900px 520px at 70% -10%, var(--bg2), transparent 60%),
+        linear-gradient(var(--bg1), var(--bg1));
       display:flex; align-items:center; justify-content:center; padding:24px;
     }
+  
+    /* === AJUSTES DE AUTO–TAMAÑO Y TÍTULOS LARGOS === */
     .card{
-      width:min(720px, 100%); 
+      width:min(900px, 100%);          /* más ancho útil para que quepa el título */
       background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       border:1px solid rgba(255,255,255,0.08);
-      border-radius:24px; 
+      border-radius:24px;
       box-shadow: 0 10px 40px rgba(0,0,0,.35);
-      padding:24px; 
+      padding:24px;
       backdrop-filter: blur(8px);
     }
-    .row{display:grid; grid-template-columns: 120px 1fr; gap:20px; align-items:center}
+    .row{
+      display:grid;
+      grid-template-columns: clamp(90px, 18vw, 140px) 1fr; /* portada flexible */
+      gap:20px;
+      align-items:start;                                   /* NO centrado vertical */
+    }
     .cover{
-      width:120px; height:120px; border-radius:16px; object-fit:cover; 
+      width:100%;
+      aspect-ratio:1/1;                                    /* cuadrada y fluida */
+      border-radius:16px; object-fit:cover;
       border:1px solid rgba(255,255,255,0.15);
       background:#111827;
     }
-    h1{margin:0 0 6px 0; font-weight:700; font-size: clamp(20px, 3.2vw, 28px);}
+    h1{
+      margin:0 0 6px 0; font-weight:800;
+      font-size: clamp(20px, 3.4vw, 34px);                /* puede reducir más si hace falta */
+      line-height:1.15;
+      overflow-wrap:anywhere;                              /* rompe palabras largas si hiciera falta */
+      hyphens:auto;
+    }
     .meta{color:var(--muted); margin-bottom:16px}
     audio{width:100%; outline:none; margin-top:8px}
     .actions{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap}
     .btn{
-      appearance:none; border:none; cursor:pointer; 
-      background:var(--accent); color:#0c1323; font-weight:700;
+      appearance:none; border:none; cursor:pointer;
+      background:var(--accent); color:#0c1323; font-weight:800;
       padding:10px 14px; border-radius:12px;
     }
     .btn.secondary{
@@ -60,6 +78,7 @@
     .small{font-size:12px; color:var(--muted); margin-top:8px}
     .center{ text-align:center; margin-top:10px}
   </style>
+
 </head>
 <body>
   <main class="card">
