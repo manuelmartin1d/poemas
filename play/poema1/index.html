@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Poema 1 · Escuchar</title>
+  <title>Poema 1</title>
 
   <!-- META para compartir (opcional) -->
-  <meta property="og:title" content="Poema 1 · Escuchar">
+  <meta property="og:title" content="Poema 1">
   <meta property="og:description" content="Reproduce el audio del poema.">
   <meta property="og:image" content="https://manuelmartin1d.github.io/poemas/poema1/cover.png"><!-- <-- cambia o elimina si no hay portada -->
   <meta property="og:type" content="website">
@@ -33,7 +33,14 @@
   
     /* === AJUSTES DE AUTO–TAMAÑO Y TÍTULOS LARGOS === */
     .card{
-      width:min(900px, 100%);
+      /* la tarjeta toma el ancho justo del contenido */
+      display: inline-block;
+      width: auto;
+    
+      /* límites: mínimo cómodo y máximo el ancho de la ventana menos padding */
+      min-width: 720px;                  /* ajústalo a tu gusto */
+      max-width: calc(100vw - 48px);
+    
       background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.10);
       border-radius:24px;
@@ -41,12 +48,27 @@
       padding:24px;
       backdrop-filter: blur(8px);
     }
+    
+    /* columna de portada + columna de contenido
+       la 2ª columna se dimensiona al contenido (título largo) */
     .row{
       display:grid;
-      grid-template-columns: clamp(90px, 18vw, 140px) 1fr;
+      grid-template-columns: clamp(90px, 18vw, 140px) minmax(max-content, 1fr);
       gap:20px;
       align-items:start;
     }
+    
+    /* el título en UNA línea; si hace falta, la caja crece */
+    h1{
+      margin:0 0 6px 0; font-weight:800;
+      font-size: clamp(20px, 3.4vw, 34px);
+      line-height:1.15;
+    
+      white-space: nowrap;   /* 1 sola línea */
+      overflow: hidden;      /* evita desbordes feos si no puede crecer más */
+    }
+    
+    /* portada fluida */
     .cover{
       width:100%;
       aspect-ratio:1/1;
@@ -54,12 +76,19 @@
       border:1px solid rgba(255,255,255,0.20);
       background:#12080b;
     }
-    h1{
-      margin:0 0 6px 0; font-weight:800;
-      font-size: clamp(20px, 3.4vw, 34px);
-      line-height:1.15;
-      overflow-wrap:anywhere;
-      hyphens:auto;
+    
+    /* Fallback móvil: si la pantalla es estrecha, deja que el título parta en 2+ líneas */
+    @media (max-width: 760px){
+      .card{
+        min-width: auto;                 /* que quepa en móviles */
+        max-width: calc(100vw - 24px);
+      }
+      .row{
+        grid-template-columns: 86px 1fr; /* portada más estrecha en móvil */
+      }
+      h1{
+        white-space: normal;             /* permitimos salto en pantallas pequeñas */
+      }
     }
     .meta{color:var(--muted); margin-bottom:16px}
     audio{width:100%; outline:none; margin-top:8px}
